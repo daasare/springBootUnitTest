@@ -3,4 +3,12 @@ server:
 
 spring:
   application:
-    name: demo
+    name: unitTesting
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/unitTest_db
+    username: postgres
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update

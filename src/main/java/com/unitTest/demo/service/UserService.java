@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -31,5 +32,13 @@ public class UserService {
         UserEntity newUser = userMapper.mapCreateUserRequestDtoToUserEntity(createUserRequest);
         userRepo.save(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body("new user created");
+    }
+
+    public ResponseEntity<UserEntity> fetchUserId(Integer id) {
+        UserEntity user = userRepo.findById(id).orElseThrow(
+                () -> new NoSuchElementException("no such user record")
+        );
+        return ResponseEntity.ok(user);
+
     }
 }
